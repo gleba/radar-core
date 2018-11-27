@@ -18,7 +18,7 @@ func Connect() {
 	var err error
 	nc, err = nats.Connect("nats://" + os.Getenv("NATS_SERVER"))
 	ifError(err)
-	log.Println("start core NATS")
+	log.Println("start core NATS :" + os.Getenv("NATS_SERVER"))
 }
 
 func Subscribe(subj string, cb nats.MsgHandler) {

@@ -12,3 +12,12 @@ type DeviceRune struct {
 	Sessions    []string
 	LastConnect time.Time
 }
+
+func (dev DeviceRune) HasAccountID(id int) bool {
+	for _, accId := range dev.AccountsIDs {
+		if accId == id {
+			return true
+		}
+	}
+	return false
+}
