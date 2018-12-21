@@ -1,4 +1,4 @@
-package ns
+package gates
 
 import (
 	"github.com/nats-io/go-nats"
@@ -14,11 +14,12 @@ func ifError(err error) {
 		log.Fatal(err)
 	}
 }
-func Connect() {
+
+func OpenNATS() {
 	var err error
 	nc, err = nats.Connect("nats://" + os.Getenv("NATS_SERVER"))
 	ifError(err)
-	log.Println("start core NATS :" + os.Getenv("NATS_SERVER"))
+	log.Println("open gate: NATS ", os.Getenv("NATS_SERVER"))
 }
 
 func Subscribe(subj string, cb nats.MsgHandler) {
