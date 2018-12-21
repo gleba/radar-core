@@ -1,8 +1,13 @@
-package stor
+package bo
 
-import "time"
+import (
+	"github.com/gleba/radar-core/ns"
+	"time"
+)
 
-const NSDeviceRune string = "device_rune"
+func init() {
+	ns.DeviceRune.Register(DeviceRune{})
+}
 
 type DeviceRune struct {
 	Rune        string `reindex:"id,,pk"`
