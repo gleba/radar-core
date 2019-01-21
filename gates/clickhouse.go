@@ -12,8 +12,21 @@ import (
 var SqlX *sqlx.DB
 
 func OpenClickHose() {
+	//caCert, err := ioutil.ReadFile(
+	//	"/usr/local/share/ca-certificates/Yandex/YandexInternalRootCA.crt")
+	//if err != nil {
+	//	log.Fatal(err)
+	//}
+	//caCertPool := x509.NewCertPool()
+	//caCertPool.AppendCertsFromPEM(caCert)
+	//&tls.Config{
+	//	RootCAs: caCertPool,
+	//}
+
 	var err error
+	//tls?.RequestClientCert
 	SqlX, err = sqlx.Open("clickhouse", os.Getenv("CLICKHOUSE"))
+
 	ux.Err(err)
 	if err := SqlX.Ping(); err != nil {
 		if exception, ok := err.(*clickhouse.Exception); ok {

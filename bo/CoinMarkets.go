@@ -37,8 +37,6 @@ func GetMarketForCoinID(id uint32) (CoinMarkets, bool) {
 	if found {
 		return *item.(*CoinMarkets), found
 	} else {
-		return CoinMarkets{
-			CoinID: id,
-		}, found
+		return CoinMarkets{}, found
 	}
 }

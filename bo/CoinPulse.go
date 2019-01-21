@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"github.com/gleba/radar-core/gates"
 	"github.com/gleba/radar-core/ux"
+	"github.com/gleba/radar-core/vars"
 	"log"
 	"time"
 )
@@ -24,6 +25,10 @@ type CoinPulse struct {
 	MarketCap
 	CoinId uint32
 	Time   time.Time
+}
+
+func (pulse *CoinPulse) IsAlive() bool {
+	return pulse.VolumeUSD > vars.MinVolume && pulse.MarketCapUSD > vars.MinCap
 }
 
 //----- next SQL Writer ↓↓↓

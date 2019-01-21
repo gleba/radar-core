@@ -1,9 +1,5 @@
 package ux
 
-import (
-	"fmt"
-)
-
 var exists = struct{}{}
 
 type set struct {
@@ -30,15 +26,16 @@ func (s *set) Contains(value string) bool {
 	return c
 }
 
-func main() {
-	s := NewSet()
-
-	s.Add("Peter")
-	s.Add("David")
-
-	fmt.Println(s.Contains("Peter"))  // True
-	fmt.Println(s.Contains("George")) // False
-
-	s.Remove("David")
-	fmt.Println(s.Contains("David")) // False
-}
+//
+//func main() {
+//	s := NewSet()
+//
+//	s.Add("Peter")
+//	s.Add("David")
+//
+//	fmt.Println(s.Contains("Peter"))  // True
+//	fmt.Println(s.Contains("George")) // False
+//
+//	s.Remove("David")
+//	fmt.Println(s.Contains("David")) // False
+//}

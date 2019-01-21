@@ -3,7 +3,6 @@ package bridge
 import (
 	"fmt"
 	"github.com/gleba/radar-core/gates"
-	"github.com/labstack/gommon/log"
 )
 
 //type TypeUFO = *[]store.CoinPulse
@@ -22,8 +21,8 @@ func ToReIndexer(namespaces ...NS) {
 	for _, n := range namespaces {
 		v := classMap[n.Name]
 		if v == nil {
-			fmt.Println("\nRei class not found :", n.Name)
-			log.Fatal()
+			fmt.Println(n)
+			panic("ToReIndexer: class not found in classMap → " + n.Name)
 		}
 		classes = append(classes, gates.ReiClasses{
 			Name:  n.Name,

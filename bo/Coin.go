@@ -3,7 +3,6 @@ package bo
 import (
 	"github.com/gleba/radar-core/gates"
 	"github.com/gleba/radar-core/ns"
-	"github.com/gleba/radar-core/vars"
 	"github.com/restream/reindexer"
 )
 
@@ -20,19 +19,19 @@ func init() {
 	ns.Coin.Register(Coin{})
 }
 
-func GetCoinsPool(ak ...int) []Coin {
+func GetCoinsPool() []Coin {
 	var query *reindexer.Query
-	if len(ak) > 0 {
-		query = gates.Rei.
-			Query(ns.Coin.Name).
-			ReqTotal()
-	} else {
-		query = gates.Rei.
-			Query(ns.Coin.Name).
-			Where("Pulse.VolumeUSD", reindexer.GT, vars.MinVolume).
-			Where("Pulse.MarketCapUSD", reindexer.GT, vars.MinCap).
-			ReqTotal()
-	}
+	//if len(ak) > 0 {
+	query = gates.Rei.
+		Query(ns.Coin.Name).
+		ReqTotal()
+	//} else {
+	//	query = gates.Rei.
+	//		Query(ns.Coin.Name).
+	//		Where("Pulse.VolumeUSD", reindexer.GT, vars.MinVolume).
+	//		Where("Pulse.MarketCapUSD", reindexer.GT, vars.MinCap).
+	//		ReqTotal()
+	//}
 	iterator := query.Exec()
 	defer iterator.Close()
 	var coins []Coin

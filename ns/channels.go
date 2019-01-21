@@ -6,6 +6,6 @@ import (
 
 var ScoreCoins = bridge.Add("score.coins")
 
-var CoinsUfo = bridge.Add("coins.ufo")
-var CoinsInfo = bridge.Add("coins.info")
+//var CoinsUfo = bridge.Add("coins.ufo")
+//var CoinsInfo = bridge.Add("coins.info")
 var CoinsFlowPulse = bridge.Add("coins.pulse")
