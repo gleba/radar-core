@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"github.com/gleba/radar-core/gates"
 	"github.com/gleba/radar-core/ux"
+	"sync"
 	"time"
 )
 
@@ -22,6 +23,27 @@ type HistoryPulseWriter struct {
 	tx    *sql.Tx
 	stmt  *sql.Stmt
 	Count int
+}
+
+var hack sync.Map
+
+func GetHistoryToDate(id uint32, date time.Time) []HistoryPulse {
+	var items []HistoryPulse
+	v, f := hack.Load(id)
+	if f {
+		items = v.([]HistoryPulse)
+	} else {
+		ux.Err(gates.SqlX.Select(&items,
+			"select Open, Volume, Close, High, Low, MarketCap, MarketCap, Date from CmcDayPulse where CoinId = ? order by Date DESC ", id))
+		hack.Store(id, items)
+	}
+	var fitems []HistoryPulse
+	for _, i := range items {
+		if i.Date.Unix() <= date.Unix() {
+			fitems = append(fitems, i)
+		}
+	}
+	return fitems
 }
 
 func GetHistory(id uint32, limit int) []HistoryPulse {

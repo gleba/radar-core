@@ -9,3 +9,5 @@ var ScoreCoins = bridge.Add("score.coins")
 //var CoinsUfo = bridge.Add("coins.ufo")
 //var CoinsInfo = bridge.Add("coins.info")
 var CoinsFlowPulse = bridge.Add("coins.pulse")
+
+var Scored = bridge.Add("scored")

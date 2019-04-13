@@ -10,21 +10,21 @@ import (
 )
 
 type PriceVol struct {
-	VolumeUSD float64
-	VolumeBTC float64
-	PriceUSD  float64
-	PriceBTC  float64
+	VolumeUSD float64 `db:"VolumeUSD"`
+	VolumeBTC float64 `db:"VolumeBTC"`
+	PriceUSD  float64 `db:"PriceUSD"`
+	PriceBTC  float64 `db:"PriceBTC"`
 }
 type MarketCap struct {
-	MarketCapUSD float64
-	MarketCapBTC float64
+	MarketCapUSD float64 `db:"MarketCapUSD"`
+	MarketCapBTC float64 `db:"MarketCapBTC"`
 }
 
 type CoinPulse struct {
 	PriceVol
 	MarketCap
-	CoinId uint32
-	Time   time.Time
+	CoinId uint32    `db:"CoinId"`
+	Time   time.Time `db:"Time"`
 }
 
 func (pulse *CoinPulse) IsAlive() bool {

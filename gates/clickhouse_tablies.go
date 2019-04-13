@@ -28,6 +28,7 @@ CREATE TABLE IF NOT EXISTS %s (
 ) 
 engine=MergeTree(Date, Time, 8192)
 `, TableCmcPulse, tablePulseVol, tableMarketCap),
+
 	fmt.Sprintf(`
 CREATE TABLE IF NOT EXISTS %s (
 	Open      Float64,

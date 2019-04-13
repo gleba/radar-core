@@ -8,6 +8,7 @@ import (
 )
 
 var nc *nats.Conn
+var NEC *nats.EncodedConn
 
 func ifError(err error) {
 	if err != nil {
@@ -19,7 +20,7 @@ func OpenNATS() {
 	var err error
 	nc, err = nats.Connect("nats://" + os.Getenv("NATS_SERVER"))
 	ifError(err)
-	log.Println("open gate: NATS ", os.Getenv("NATS_SERVER"))
+	NEC, _ = nats.NewEncodedConn(nc, nats.GOB_ENCODER)
 }
 
 func Subscribe(subj string, cb nats.MsgHandler) {

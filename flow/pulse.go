@@ -14,11 +14,3 @@ func OnCoinPulse(f func(*[]bo.CoinPulse)) {
 		f(&v)
 	})
 }
-
-func OnUfoList(f func(*[]bo.UFO)) {
-	ns.CoinsUfo.On(func(data []byte) {
-		var v []bo.UFO
-		ux.Err(msgpack.Unmarshal(data, &v))
-		f(&v)
-	})
-}
