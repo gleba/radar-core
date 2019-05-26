@@ -27,7 +27,7 @@ func OpenClickHose() {
 	//tls?.RequestClientCert
 	SqlX, err = sqlx.Open("clickhouse", os.Getenv("CLICKHOUSE"))
 
-	ux.Err(err)
+	ux.Safe(err)
 	if err := SqlX.Ping(); err != nil {
 		if exception, ok := err.(*clickhouse.Exception); ok {
 			fmt.Printf("[%d] %s \n%s\n", exception.Code, exception.Message, exception.StackTrace)
@@ -39,7 +39,7 @@ func OpenClickHose() {
 
 	for _, table := range tablies {
 		_, err = SqlX.Exec(table)
-		ux.Err(err)
+		ux.Safe(err)
 	}
 	log.Println("open gate: ClickHouse")
 }

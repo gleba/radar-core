@@ -12,7 +12,7 @@ type Coin struct {
 	Name   string
 	Symbol string
 	Rate   float64
-	Pulse  CoinPulse
+	Pulse  CoinPulseOld
 }
 
 func init() {

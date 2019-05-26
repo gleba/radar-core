@@ -2,9 +2,11 @@ package ux
 
 import "log"
 
-func Err(err error, messages ...interface{}) {
+func Safe(err error, messages ...interface{}) bool {
 	if err != nil {
 		log.Println(messages...)
 		log.Fatal(err)
+		return false
 	}
+	return true
 }

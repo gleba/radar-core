@@ -20,14 +20,27 @@ type MarketCap struct {
 	MarketCapBTC float64 `db:"MarketCapBTC"`
 }
 
-type CoinPulse struct {
+type CoinPulseOld struct {
 	PriceVol
 	MarketCap
 	CoinId uint32    `db:"CoinId"`
 	Time   time.Time `db:"Time"`
 }
 
-func (pulse *CoinPulse) IsAlive() bool {
+type CoinPulse struct {
+	PriceVol
+	MarketCap
+	CoinID uint32    `db:"CoinID"`
+	Time   time.Time `db:"Time"`
+}
+//type CoinPulse struct {
+//	PriceVol
+//	MarketCap
+//	CoinID uint32    `db:"CoinID"`
+//	Time   time.Time `db:"Time"`
+//}
+
+func (pulse *CoinPulseOld) IsAlive() bool {
 	return pulse.VolumeUSD > vars.MinVolume && pulse.MarketCapUSD > vars.MinCap
 }
 
@@ -46,22 +59,22 @@ func CreatePulseWriter() *PulseWriter {
 	}
 	var err error
 	writer.tx, err = gates.SqlX.Begin()
-	ux.Err(err)
+	ux.Safe(err)
 	writer.stmt, err = writer.tx.Prepare("INSERT INTO CmcPulse (CoinId, Time, VolumeUSD, VolumeBTC, MarketCapUSD, MarketCapBTC,PriceUSD,PriceBTC) VALUES (?,?,?,?,?,?,?,?)")
-	ux.Err(err)
+	ux.Safe(err)
 	return &writer
 }
 
-func (self *PulseWriter) Add(pulse CoinPulse) {
+func (self *PulseWriter) Add(pulse CoinPulseOld) {
 	_, err := self.stmt.Exec(
 		pulse.CoinId, pulse.Time,
 		pulse.VolumeUSD, pulse.VolumeBTC, pulse.MarketCapUSD, pulse.MarketCapBTC, pulse.PriceUSD, pulse.PriceBTC)
-	ux.Err(err)
+	ux.Safe(err)
 	self.Count = 1 + self.Count
 }
 func (w *PulseWriter) Commit() {
 	if w.Count >= 1 {
-		ux.Err(w.tx.Commit())
+		ux.Safe(w.tx.Commit())
 		log.Println("pulse change ", w.Count, "elements")
 		w.Count = 0
 	}

@@ -7,10 +7,10 @@ import (
 	"github.com/vmihailenco/msgpack"
 )
 
-func OnCoinPulse(f func(*[]bo.CoinPulse)) {
+func OnCoinPulse(f func(*[]bo.CoinPulseOld)) {
 	ns.CoinsPulse.On(func(data []byte) {
-		var v []bo.CoinPulse
-		ux.Err(msgpack.Unmarshal(data, &v))
+		var v []bo.CoinPulseOld
+		ux.Safe(msgpack.Unmarshal(data, &v))
 		f(&v)
 	})
 }

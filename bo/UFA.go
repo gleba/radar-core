@@ -35,6 +35,6 @@ func GetUfaPool() *[]UFA {
 	for iterator.Next() {
 		items = append(items, *iterator.Object().(*UFA))
 	}
-	ux.Err(iterator.Error())
+	ux.Safe(iterator.Error())
 	return &items
 }
