@@ -12,7 +12,7 @@ func init() {
 
 type UFO struct {
 	CoinID uint32 `reindex:"id,,pk"`
-	//CmcID      string
+	//CmcId      string
 	NoiseClose float64
 	NoiseStorm float64
 	XVolumes   [3]float64

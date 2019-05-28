@@ -39,7 +39,9 @@ type CoinPulse struct {
 //	CoinID uint32    `db:"CoinID"`
 //	Time   time.Time `db:"Time"`
 //}
-
+func (pulse *CoinPulse) IsAlive() bool {
+	return pulse.VolumeUSD > vars.MinVolume && pulse.MarketCapUSD > vars.MinCap
+}
 func (pulse *CoinPulseOld) IsAlive() bool {
 	return pulse.VolumeUSD > vars.MinVolume && pulse.MarketCapUSD > vars.MinCap
 }
